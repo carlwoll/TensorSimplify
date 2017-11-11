@@ -9,7 +9,8 @@ Paclet[
     Creator -> "Carl Woll",
     Extensions -> 
         {
-            {"Documentation", Language -> "English"}
+            {"Documentation", Language -> "English"}, 
+            {"Kernel", Root -> ".", Context -> "TensorSimplify`"}
         }
 ]
 
