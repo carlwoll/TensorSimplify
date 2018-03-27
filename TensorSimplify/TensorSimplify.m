@@ -13,17 +13,18 @@ TensorSimplify::unkrnk = "Unable to determine tensor rank of `1`"
 
 Begin["`Private`"]
 
-Options[TensorSimplify] = {Assumptions :> $Assumptions, Tensors->Automatic};
+Options[TensorSimplify] = {Assumptions :> $Assumptions, "Tensors"->Automatic};
 
-TensorSimplify[expr_, OptionsPattern[]] := Module[{output = Replace[OptionValue[Tensors], Except[_?BooleanQ] :> FreeQ[expr, Dot|Tr]], res},
-	res = IdentityReduce @ TensorReduce[ToTensor@expr, Assumptions -> OptionValue@Assumptions];
-	If[TrueQ@output,
-		res,
-		FromTensor @ res
+TensorSimplify[expr_, OptionsPattern[]] := Module[{output = Replace[OptionValue["Tensors"], Except[_?BooleanQ] :> FreeQ[expr, Dot|Tr]], res},
+	Block[{$Assumptions = OptionValue[Assumptions]},
+		res = IdentityReduce @ TensorReduce[ToTensor @ expr];
+		res = res /. t:(TensorTranspose | TensorContract) :> TensorReduce @* t;
+		If[TrueQ@output,
+			res,
+			FromTensor @ res
+		]
 	]
 ]
-
-
 
 ToTensor[expr_] := expr /. {Dot->dot, Tr->tr}
 
