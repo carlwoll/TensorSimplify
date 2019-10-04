@@ -116,9 +116,9 @@ itc[a_TensorProduct, i_] := Module[
 		],
 
 		Count[res,_Transpose] > Length[a]/2-1,
-		res = Reverse[res];
-		res[[2 ;; -2]] = Replace[List @@ res[[2 ;; -2]], {Transpose[m_]:>m, m_:>Transpose[m]}, {1}];
-		res,
+		res = List @@ Reverse[res];
+		res[[2 ;; -2]] = Replace[res[[2 ;; -2]], {Transpose[m_]:>m, m_:>Transpose[m]}, {1}];
+		Dot @@ res,
 
 		True,
 		res

@@ -1,10 +1,10 @@
 (* Paclet Info File *)
 
-(* created 2018/03/26*)
+(* created 2019/10/03*)
 
 Paclet[
     Name -> "TensorSimplify",
-    Version -> "0.0.2",
+    Version -> "0.0.3",
     MathematicaVersion -> "10+",
     Creator -> "Carl Woll",
     Extensions -> 
